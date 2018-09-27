@@ -1,27 +1,98 @@
 maze = []
+stack = []
 
 def init_board():
 
-    with open('open maze.txt', 'r') as f:
+    with open('open maze.txt', 'r') as file:
         while True:
-            c = f.readline()
-            if not c:
+            line = file.readline()
+            if not line:
                 break
-            maze.append(list(c))
-
+            maze.append(list(line))
 
 
 def depth_first():
-    y_index = 0
-    x_index = None
+    p_x = None
+    p_y = 0
     for line in maze:
         try:
-            x_index = line.index("P")
+            p_x = line.index("P")
             break
         except ValueError:
-            y_index += 1
+            p_y += 1
             continue
 
+    stack.append([p_y, p_x])
+    goal = False
+    current_y = p_y
+    current_x = p_x
+
+    while (not goal):
+        for line in maze:
+            for item in line:
+                print(item, end = ' ')
+            print('')
+
+        enter = input("")
+        if (maze[current_y][current_x - 1] == '*'):
+            goal = True
+            maze[current_y][current_x] = '.'
+            maze[current_y][current_x - 1] = 'X'
+            print("You solved the maze")
+            break
+        elif (maze[current_y][current_x - 1] == ' '):
+            maze[current_y][current_x] = '.'
+            current_x = current_x - 1
+            maze[current_y][current_x] = 'X'
+            stack.append([current_y, current_x])
+            continue
+        elif (maze[current_y - 1][current_x] == '*'):
+            goal = True
+            maze[current_y][current_x] = '.'
+            maze[current_y - 1][current_x] = 'X'
+            print("You solved the maze")
+            break
+        elif (maze[current_y - 1][current_x] == ' '):
+            maze[current_y][current_x] = '.'
+            current_y = current_y - 1
+            maze[current_y][current_x] = 'X'
+            stack.append([current_y, current_x])
+            continue
+        elif (maze[current_y][current_x + 1] == '*'):
+            goal = True
+            maze[current_y][current_x] = '.'
+            maze[current_y][current_x + 1] = 'X'
+            print("You solved the maze")
+            break
+        elif (maze[current_y][current_x + 1] == ' '):
+            maze[current_y][current_x] = '.'
+            current_x = current_x + 1
+            maze[current_y][current_x] = 'X'
+            stack.append([current_y, current_x])
+            continue
+        elif (maze[current_y + 1][current_x] == '*'):
+            goal = True
+            maze[current_y][current_x] = '.'
+            maze[current_y + 1][current_x] = 'X'
+            print("You solved the maze")
+            break
+        elif (maze[current_y + 1][current_x] == ' '):
+            maze[current_y][current_x] = '.'
+            current_y = current_y + 1
+            maze[current_y][current_x] = 'X'
+            stack.append([current_y, current_x])
+            continue
+        else:
+            maze[current_y][current_x] = '.'
+            current_coords = stack.pop()
+            current_x = current_coords[1]
+            current_y = current_coords[0]
+            maze[current_y][current_x] = 'X'
+
+    for line in maze:
+        for item in line:
+            print(item, end = ' ')
+        print('')
 
 def main():
     init_board()
