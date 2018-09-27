@@ -37,25 +37,25 @@ def depth_first():
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             maze[current_y][current_x] = '.'
-            maze[current_y][current_x - 1] = 'X'
+            maze[current_y][current_x - 1] = 'O'
             print("You solved the maze")
             break
         elif (maze[current_y][current_x - 1] == ' '):
             maze[current_y][current_x] = '.'
             current_x = current_x - 1
-            maze[current_y][current_x] = 'X'
+            maze[current_y][current_x] = '>'
             stack.append([current_y, current_x])
             continue
         elif (maze[current_y - 1][current_x] == '*'):
             goal = True
             maze[current_y][current_x] = '.'
-            maze[current_y - 1][current_x] = 'X'
+            maze[current_y - 1][current_x] = 'O'
             print("You solved the maze")
             break
         elif (maze[current_y - 1][current_x] == ' '):
             maze[current_y][current_x] = '.'
             current_y = current_y - 1
-            maze[current_y][current_x] = 'X'
+            maze[current_y][current_x] = 'v'
             stack.append([current_y, current_x])
             continue
         elif (maze[current_y][current_x + 1] == '*'):
@@ -67,7 +67,7 @@ def depth_first():
         elif (maze[current_y][current_x + 1] == ' '):
             maze[current_y][current_x] = '.'
             current_x = current_x + 1
-            maze[current_y][current_x] = 'X'
+            maze[current_y][current_x] = '<'
             stack.append([current_y, current_x])
             continue
         elif (maze[current_y + 1][current_x] == '*'):
@@ -79,7 +79,7 @@ def depth_first():
         elif (maze[current_y + 1][current_x] == ' '):
             maze[current_y][current_x] = '.'
             current_y = current_y + 1
-            maze[current_y][current_x] = 'X'
+            maze[current_y][current_x] = '^'
             stack.append([current_y, current_x])
             continue
         else:
