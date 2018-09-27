@@ -30,11 +30,11 @@ def depth_first():
     current_x = p_x
 
     while (not goal):
-        for line in maze:
-            for item in line:
-                print(item, end = ' ')
+        #for line in maze:
+        #    for item in line:
+        #        print(item, end = ' ')
 
-        enter = input("")
+        #enter = input("")
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             print("You solved the maze")
