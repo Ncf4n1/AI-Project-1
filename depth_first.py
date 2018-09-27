@@ -33,7 +33,6 @@ def depth_first():
         for line in maze:
             for item in line:
                 print(item, end = ' ')
-            print('')
 
         time.sleep(0.1)
         if (maze[current_y][current_x - 1] == '*'):
@@ -94,7 +93,7 @@ def depth_first():
     for line in maze:
         for item in line:
             print(item, end = ' ')
-        print('')
+
 
 def main():
     init_board()

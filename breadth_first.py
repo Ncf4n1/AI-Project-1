@@ -1,5 +1,7 @@
+from collections import deque
+
 maze = []
-queue = []
+queue = deque([])
 
 def init_board():
 
@@ -31,68 +33,51 @@ def depth_first():
         for line in maze:
             for item in line:
                 print(item, end = ' ')
-            print('')
 
         enter = input("")
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
-            maze[current_y][current_x] = '.'
-            maze[current_y][current_x - 1] = 'X'
             print("You solved the maze")
             break
         elif (maze[current_y][current_x - 1] == ' '):
-            maze[current_y][current_x] = '.'
-            current_x = current_x - 1
-            maze[current_y][current_x] = 'X'
-            stack.append([current_y, current_x])
-            continue
-        elif (maze[current_y - 1][current_x] == '*'):
+            queue.append([current_y, current_x - 1])
+            maze[current_y][current_x - 1] = '.'
+
+        if (maze[current_y - 1][current_x] == '*'):
             goal = True
-            maze[current_y][current_x] = '.'
-            maze[current_y - 1][current_x] = 'X'
             print("You solved the maze")
             break
         elif (maze[current_y - 1][current_x] == ' '):
-            maze[current_y][current_x] = '.'
-            current_y = current_y - 1
-            maze[current_y][current_x] = 'X'
-            stack.append([current_y, current_x])
-            continue
-        elif (maze[current_y][current_x + 1] == '*'):
+            queue.append([current_y - 1, current_x])
+            maze[current_y - 1][current_x] = '.'
+
+        if (maze[current_y][current_x + 1] == '*'):
             goal = True
-            maze[current_y][current_x] = '.'
-            maze[current_y][current_x + 1] = 'X'
             print("You solved the maze")
             break
         elif (maze[current_y][current_x + 1] == ' '):
-            maze[current_y][current_x] = '.'
-            current_x = current_x + 1
-            maze[current_y][current_x] = 'X'
-            stack.append([current_y, current_x])
-            continue
-        elif (maze[current_y + 1][current_x] == '*'):
+            queue.append([current_y, current_x + 1])
+            maze[current_y][current_x + 1] = '.'
+
+        if (maze[current_y + 1][current_x] == '*'):
             goal = True
-            maze[current_y][current_x] = '.'
-            maze[current_y + 1][current_x] = 'X'
             print("You solved the maze")
             break
         elif (maze[current_y + 1][current_x] == ' '):
-            maze[current_y][current_x] = '.'
-            current_y = current_y + 1
-            maze[current_y][current_x] = 'X'
-            stack.append([current_y, current_x])
-            continue
-        else:
-            maze[current_y][current_x] = '.'
-            current_coords = stack.pop()
-            current_x = current_coords[1]
-            current_y = current_coords[0]
-            maze[current_y][current_x] = 'X'
+            queue.append([current_y + 1, current_x])
+            maze[current_y + 1][current_x] = '.'
+
+        current_coords = queue.popleft()
+        maze[current_y][current_x] = '.'
+        current_x = current_coords[1]
+        current_y = current_coords[0]
+        maze[current_y][current_x] = 'X'
+
 
     for line in maze:
         for item in line:
             print(item, end = ' ')
-        print('')
+
 
 def main():
     init_board()
