@@ -1,4 +1,5 @@
 from collections import deque
+import time
 
 maze = []
 queue = deque([])
@@ -30,11 +31,11 @@ def depth_first():
     current_x = p_x
 
     while (not goal):
-        #for line in maze:
-        #    for item in line:
-        #        print(item, end = ' ')
+        for line in maze:
+            for item in line:
+                print(item, end = ' ')
 
-        #enter = input("")
+        time.sleep(0.1)
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             print("You solved the maze")
