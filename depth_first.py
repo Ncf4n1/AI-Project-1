@@ -1,3 +1,5 @@
+import time
+
 maze = []
 stack = []
 
@@ -33,7 +35,7 @@ def depth_first():
                 print(item, end = ' ')
             print('')
 
-        enter = input("")
+        time.sleep(0.1)
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             maze[current_y][current_x] = '.'
