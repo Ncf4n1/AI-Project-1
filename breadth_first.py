@@ -14,7 +14,7 @@ def init_board():
             maze.append(list(line))
 
 
-def depth_first():
+def breadth_first():
     p_x = None
     p_y = 0
     for line in maze:
@@ -82,6 +82,6 @@ def depth_first():
 
 def main():
     init_board()
-    depth_first()
+    breadth_first()
 
 main()
