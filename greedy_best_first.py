@@ -5,7 +5,7 @@ pqueue = []
 
 def init_board():
 
-    with open('medium maze.txt', 'r') as file:
+    with open('open maze.txt', 'r') as file:
         while True:
             line = file.readline()
             if not line:
