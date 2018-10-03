@@ -42,7 +42,7 @@ def breadth_first():
             break
         elif (maze[current_y][current_x - 1] == ' '):
             queue.append([current_y, current_x - 1])
-            maze[current_y][current_x - 1] = '.'
+            maze[current_y][current_x - 1] = 'c'
 
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
@@ -50,7 +50,7 @@ def breadth_first():
             break
         elif (maze[current_y - 1][current_x] == ' '):
             queue.append([current_y - 1, current_x])
-            maze[current_y - 1][current_x] = '.'
+            maze[current_y - 1][current_x] = 'c'
 
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
@@ -58,7 +58,7 @@ def breadth_first():
             break
         elif (maze[current_y][current_x + 1] == ' '):
             queue.append([current_y, current_x + 1])
-            maze[current_y][current_x + 1] = '.'
+            maze[current_y][current_x + 1] = 'c'
 
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
@@ -66,7 +66,7 @@ def breadth_first():
             break
         elif (maze[current_y + 1][current_x] == ' '):
             queue.append([current_y + 1, current_x])
-            maze[current_y + 1][current_x] = '.'
+            maze[current_y + 1][current_x] = 'c'
 
         current_coords = queue.popleft()
         maze[current_y][current_x] = '.'

@@ -5,17 +5,17 @@ pqueue = []
 
 def init_board():
 
-    with open('medium maze.txt', 'r') as file:
+    with open('open maze.txt', 'r') as file:
         while True:
             line = file.readline()
             if not line:
                 break
             maze.append(list(line))
 
-def calc_distance(p_x, p_y, star_x, star_y):
-    return ( abs(p_x - star_x) ) + ( abs( ( -p_y ) - ( -star_y ) ) )
+def distance_to_go(current_x, current_y, star_x, star_y):
+    return ( abs(current_x - star_x) ) + ( abs( ( -current_y ) - ( -star_y ) ) )
 
-def greedy_best_first():
+def a_star():
     p_x = None
     p_y = 0
     for line in maze:
@@ -39,9 +39,9 @@ def greedy_best_first():
     goal = False
     current_y = p_y
     current_x = p_x
+    old_path_traveled = 0
 
     while (not goal):
-
         for line in maze:
             for item in line:
                 print(item, end = ' ')
@@ -52,42 +52,51 @@ def greedy_best_first():
             print("You solved the maze")
             break
         elif (maze[current_y][current_x - 1] == ' '):
-            path = calc_distance(current_x - 1, current_y, star_x, star_y)
-            heapq.heappush(pqueue, (path, [current_y, current_x - 1]))
-            maze[current_y][current_x - 1] = '.'
+            path_traveled = old_path_traveled + 1
+            path_to_go = distance_to_go(current_x - 1, current_y, star_x, star_y)
+            path = path_traveled + path_to_go
+            heapq.heappush(pqueue, (path, path_traveled, [current_y, current_x - 1]))
+            maze[current_y][current_x - 1] = 'c'
 
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
             print("You solved the maze")
             break
         elif (maze[current_y - 1][current_x] == ' '):
-            path = calc_distance(current_x, current_y - 1, star_x, star_y)
-            heapq.heappush(pqueue, (path, [current_y - 1, current_x]))
-            maze[current_y - 1][current_x] = '.'
+            path_traveled = old_path_traveled + 1
+            path_to_go = distance_to_go(current_x, current_y - 1, star_x, star_y)
+            path = path_traveled + path_to_go
+            heapq.heappush(pqueue, (path, path_traveled, [current_y - 1, current_x]))
+            maze[current_y - 1][current_x] = 'c'
 
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
             print("You solved the maze")
             break
         elif (maze[current_y][current_x + 1] == ' '):
-            path = calc_distance(current_x + 1, current_y, star_x, star_y)
-            heapq.heappush(pqueue, (path, [current_y, current_x + 1]))
-            maze[current_y][current_x + 1] = '.'
+            path_traveled = old_path_traveled + 1
+            path_to_go = distance_to_go(current_x + 1, current_y, star_x, star_y)
+            path = path_traveled + path_to_go
+            heapq.heappush(pqueue, (path, path_traveled, [current_y, current_x + 1]))
+            maze[current_y][current_x + 1] = 'c'
 
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
             print("You solved the maze")
             break
         elif (maze[current_y + 1][current_x] == ' '):
-            path = calc_distance(current_x, current_y + 1, star_x, star_y)
-            heapq.heappush(pqueue, (path, [current_y + 1, current_x]))
-            maze[current_y + 1][current_x] = '.'
+            path_traveled = old_path_traveled + 1
+            path_to_go = distance_to_go(current_x, current_y + 1, star_x, star_y)
+            path = path_traveled + path_to_go
+            heapq.heappush(pqueue, (path, path_traveled, [current_y + 1, current_x]))
+            maze[current_y + 1][current_x] = 'c'
 
-        current_coords = heapq.heappop(pqueue)
+        current_tuple = heapq.heappop(pqueue)
         maze[current_y][current_x] = '.'
-        current_x = current_coords[1][1]
-        current_y = current_coords[1][0]
+        current_x = current_tuple[2][1]
+        current_y = current_tuple[2][0]
         maze[current_y][current_x] = 'X'
+        old_path_traveled = current_tuple[1]
 
     for line in maze:
         for item in line:
@@ -95,7 +104,7 @@ def greedy_best_first():
 
 def main():
     init_board()
-    greedy_best_first()
+    a_star()
 
 
 main()

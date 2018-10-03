@@ -54,7 +54,7 @@ def greedy_best_first():
         elif (maze[current_y][current_x - 1] == ' '):
             path = calc_distance(current_x - 1, current_y, star_x, star_y)
             heapq.heappush(pqueue, (path, [current_y, current_x - 1]))
-            maze[current_y][current_x - 1] = '.'
+            maze[current_y][current_x - 1] = 'c'
 
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
@@ -63,7 +63,7 @@ def greedy_best_first():
         elif (maze[current_y - 1][current_x] == ' '):
             path = calc_distance(current_x, current_y - 1, star_x, star_y)
             heapq.heappush(pqueue, (path, [current_y - 1, current_x]))
-            maze[current_y - 1][current_x] = '.'
+            maze[current_y - 1][current_x] = 'c'
 
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
@@ -72,7 +72,7 @@ def greedy_best_first():
         elif (maze[current_y][current_x + 1] == ' '):
             path = calc_distance(current_x + 1, current_y, star_x, star_y)
             heapq.heappush(pqueue, (path, [current_y, current_x + 1]))
-            maze[current_y][current_x + 1] = '.'
+            maze[current_y][current_x + 1] = 'c'
 
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
@@ -81,7 +81,7 @@ def greedy_best_first():
         elif (maze[current_y + 1][current_x] == ' '):
             path = calc_distance(current_x, current_y + 1, star_x, star_y)
             heapq.heappush(pqueue, (path, [current_y + 1, current_x]))
-            maze[current_y + 1][current_x] = '.'
+            maze[current_y + 1][current_x] = 'c'
 
         current_coords = heapq.heappop(pqueue)
         maze[current_y][current_x] = '.'
