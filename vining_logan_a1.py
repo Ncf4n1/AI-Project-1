@@ -241,8 +241,12 @@ def greedy_best_first(maze):
     star_x = star_coords[0]
     goal = False
 
+    # Check and expand nodes (Clockwise Left to Right)
+    # Continue checking until the goal is reached
     while (not goal):
 
+        # First goal check the left node
+        # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             print('\n')
@@ -254,6 +258,8 @@ def greedy_best_first(maze):
             heapq.heappush(g_pqueu, (path, [current_y, current_x - 1]))
             maze[current_y][current_x - 1] = 'c'
 
+        # Then goal check the top node
+        # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
             print('\n')
@@ -265,6 +271,8 @@ def greedy_best_first(maze):
             heapq.heappush(g_pqueu, (path, [current_y - 1, current_x]))
             maze[current_y - 1][current_x] = 'c'
 
+        # Goal check the right node
+        # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
             print('\n')
@@ -276,6 +284,8 @@ def greedy_best_first(maze):
             heapq.heappush(g_pqueu, (path, [current_y, current_x + 1]))
             maze[current_y][current_x + 1] = 'c'
 
+        # Finally goal check the bottom node
+        # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
             print('\n')
@@ -287,6 +297,7 @@ def greedy_best_first(maze):
             heapq.heappush(g_pqueu, (path, [current_y + 1, current_x]))
             maze[current_y + 1][current_x] = 'c'
 
+        # Update the old position with a '.' and update the current position
         current_coords = heapq.heappop(g_pqueu)
         maze[current_y][current_x] = '.'
         current_x = current_coords[1][1]
@@ -313,8 +324,13 @@ def a_star(maze):
     goal = False
     old_path_traveled = 0
 
+    # Check and expand nodes (Clockwise Left to Right)
+    # Continue checking until the goal is reached
     while (not goal):
 
+        # First goal check the left node
+        # If not a goal, then calculate the sum of the distance to goal plus
+        # the path cost to the current position
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             print('\n')
@@ -328,6 +344,9 @@ def a_star(maze):
             heapq.heappush(a_pqueue, (path, path_traveled, [current_y, current_x - 1]))
             maze[current_y][current_x - 1] = 'c'
 
+        # Then goal check the top node
+        # If not a goal, then calculate the sum of the distance to goal plus
+        # the path cost to the current position
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
             print('\n')
@@ -341,6 +360,9 @@ def a_star(maze):
             heapq.heappush(a_pqueue, (path, path_traveled, [current_y - 1, current_x]))
             maze[current_y - 1][current_x] = 'c'
 
+        # Goal check the right node
+        # If not a goal, then calculate the sum of the distance to goal plus
+        # the path cost to the current position
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
             print('\n')
@@ -354,6 +376,9 @@ def a_star(maze):
             heapq.heappush(a_pqueue, (path, path_traveled, [current_y, current_x + 1]))
             maze[current_y][current_x + 1] = 'c'
 
+        # Finally goal check the bottom node
+        # If not a goal, then calculate the sum of the distance to goal plus
+        # the path cost to the current position
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
             print('\n')
@@ -367,6 +392,8 @@ def a_star(maze):
             heapq.heappush(a_pqueue, (path, path_traveled, [current_y + 1, current_x]))
             maze[current_y + 1][current_x] = 'c'
 
+        # Update the old position with a '.' and update the current position
+        # Update the the path cost of the old position as well
         current_tuple = heapq.heappop(a_pqueue)
         maze[current_y][current_x] = '.'
         current_x = current_tuple[2][1]
