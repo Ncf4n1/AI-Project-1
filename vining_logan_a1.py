@@ -5,7 +5,7 @@ import heapq
 def init_maze(maze):
 
     # Read in the given file line by line until the end of file
-    with open('open maze.txt', 'r') as file:
+    with open('medium maze.txt', 'r') as file:
         while True:
             line = file.readline()
             if not line:
@@ -160,7 +160,7 @@ def depth_first(maze):
     current_y = p_coords[1]
     current_x = p_coords[0]
     d_path_cost = 0
-    stack.append([current_y, current_x])
+    stack.append(([current_y, current_x], d_path_cost))
     d_expanded = 0
     goal = False
 
@@ -178,8 +178,7 @@ def depth_first(maze):
             print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
-            stack.append([current_y, current_x - 1])
-            d_path_cost += 1
+            stack.append(([current_y, current_x - 1], d_path_cost + 1))
             d_expanded += 1
             maze[current_y][current_x - 1] = '.'
             continue
@@ -194,8 +193,7 @@ def depth_first(maze):
             print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
-            stack.append([current_y - 1, current_x])
-            d_path_cost += 1
+            stack.append(([current_y - 1, current_x], d_path_cost + 1))
             d_expanded += 1
             maze[current_y - 1][current_x] = '.'
             continue
@@ -210,8 +208,7 @@ def depth_first(maze):
             print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
-            stack.append([current_y, current_x + 1])
-            d_path_cost += 1
+            stack.append(([current_y, current_x + 1], d_path_cost + 1))
             d_expanded += 1
             maze[current_y][current_x + 1] = '.'
             continue
@@ -226,8 +223,7 @@ def depth_first(maze):
             print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
-            stack.append([current_y + 1, current_x])
-            d_path_cost += 1
+            stack.append(([current_y + 1, current_x], d_path_cost + 1))
             d_expanded += 1
             maze[current_y + 1][current_x] = '.'
             continue
@@ -236,9 +232,9 @@ def depth_first(maze):
         else:
             maze[current_y][current_x] = '.'
             current_coords = stack.pop()
-            d_path_cost -= 1
-            current_x = current_coords[1]
-            current_y = current_coords[0]
+            current_x = current_coords[0][1]
+            current_y = current_coords[0][0]
+            d_path_cost = current_coords[1]
 
     print('Expanded Nodes = ' + str(d_expanded))
 
