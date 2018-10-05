@@ -355,6 +355,7 @@ def a_star(maze):
     star_y = star_coords[1]
     star_x = star_coords[0]
     goal = False
+    a_expanded = 0
     old_path_traveled = 0
 
     # Check and expand nodes (Clockwise Left to Right)
@@ -369,6 +370,7 @@ def a_star(maze):
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            print('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
             path_traveled = old_path_traveled + 1
@@ -385,6 +387,7 @@ def a_star(maze):
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            print('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
             path_traveled = old_path_traveled + 1
@@ -401,6 +404,7 @@ def a_star(maze):
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            print('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
             path_traveled = old_path_traveled + 1
@@ -417,6 +421,7 @@ def a_star(maze):
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            print('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
             path_traveled = old_path_traveled + 1
@@ -428,10 +433,13 @@ def a_star(maze):
         # Update the old position with a '.' and update the current position
         # Update the the path cost of the old position as well
         current_tuple = heapq.heappop(a_pqueue)
+        a_expanded += 1
         maze[current_y][current_x] = '.'
         current_x = current_tuple[2][1]
         current_y = current_tuple[2][0]
         old_path_traveled = current_tuple[1]
+
+    print('Expanded Nodes = ' + str(a_expanded))
 
 
 # Main function to begin the program
