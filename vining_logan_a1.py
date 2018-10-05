@@ -5,7 +5,7 @@ import heapq
 def init_maze(maze):
 
     # Read in the given file line by line until the end of file
-    with open('open maze.txt', 'r') as file:
+    with open('large maze.txt', 'r') as file:
         while True:
             line = file.readline()
             if not line:
@@ -16,10 +16,18 @@ def init_maze(maze):
 # Helper function that prints out the given maze
 def print_maze(maze):
 
-    file = open('maze_output.txt', 'w')
+    file = open('maze_output.txt', 'a')
     for line in maze:
         for item in line:
             file.write(item)
+    file.write('\n')
+
+
+# Function that writes the path cost and expanded node count to the output file
+def write_to_file(message):
+
+    file = open('maze_output.txt', 'a')
+    file.write(message)
     file.write('\n')
 
 
@@ -90,10 +98,9 @@ def breadth_first(maze):
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
-            print('Path Cost = ' + str(b_path_cost + 1))
+            write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
             queue.append(([current_y, current_x - 1], b_path_cost + 1))
@@ -103,10 +110,9 @@ def breadth_first(maze):
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
-            print('Path Cost = ' + str(b_path_cost + 1))
+            write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
             queue.append(([current_y - 1, current_x], b_path_cost + 1))
@@ -116,10 +122,9 @@ def breadth_first(maze):
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
-            print('Path Cost = ' + str(b_path_cost + 1))
+            write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
             queue.append(([current_y, current_x + 1], b_path_cost + 1))
@@ -129,10 +134,9 @@ def breadth_first(maze):
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
-            print('Path Cost = ' + str(b_path_cost + 1))
+            write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
             queue.append(([current_y + 1, current_x], b_path_cost + 1))
@@ -148,7 +152,7 @@ def breadth_first(maze):
         b_path_cost = current_node[1]
 
     # Finish by printing the number of expanded nodes
-    print('Expanded Nodes = ' + str(b_expanded))
+    write_to_file('Expanded Nodes = ' + str(b_expanded))
 
 # Function to use the Depth First Search Algorithm
 def depth_first(maze):
@@ -174,10 +178,9 @@ def depth_first(maze):
         # If not a goal, then add it to the stack, expand it, & update path cost
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
-            print('Path Cost = ' + str(d_path_cost + 1))
+            write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
             stack.append(([current_y, current_x - 1], d_path_cost + 1))
@@ -189,10 +192,9 @@ def depth_first(maze):
         # If not a goal, then add it to the stack, expand it, & update path cost
         elif (maze[current_y - 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
-            print('Path Cost = ' + str(d_path_cost + 1))
+            write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
             stack.append(([current_y - 1, current_x], d_path_cost + 1))
@@ -204,10 +206,9 @@ def depth_first(maze):
         # If not a goal, then add it to the stack, expand it, & update path cost
         elif (maze[current_y][current_x + 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
-            print('Path Cost = ' + str(d_path_cost + 1))
+            write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
             stack.append(([current_y, current_x + 1], d_path_cost + 1))
@@ -219,10 +220,9 @@ def depth_first(maze):
         # If not a goal, then add it to the stack, expand it, and update path cost
         elif (maze[current_y + 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
-            print('Path Cost = ' + str(d_path_cost + 1))
+            write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
             stack.append(([current_y + 1, current_x], d_path_cost + 1))
@@ -238,7 +238,7 @@ def depth_first(maze):
             current_y = current_coords[0][0]
             d_path_cost = current_coords[1]
 
-    print('Expanded Nodes = ' + str(d_expanded))
+    write_to_file('Expanded Nodes = ' + str(d_expanded))
 
 
 # Function to use the Greedy Best First Search Algorithm
@@ -271,10 +271,9 @@ def greedy_best_first(maze):
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
-            print('Path Cost = ' + str(g_path_cost + 1))
+            write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
             path = distance_to_go(current_x - 1, current_y, star_x, star_y)
@@ -285,10 +284,9 @@ def greedy_best_first(maze):
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
-            print('Path Cost = ' + str(g_path_cost + 1))
+            write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
             path = distance_to_go(current_x, current_y - 1, star_x, star_y)
@@ -299,10 +297,9 @@ def greedy_best_first(maze):
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
-            print('Path Cost = ' + str(g_path_cost + 1))
+            write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
             path = distance_to_go(current_x + 1, current_y, star_x, star_y)
@@ -313,10 +310,9 @@ def greedy_best_first(maze):
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
-            print('Path Cost = ' + str(g_path_cost + 1))
+            write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
             path = distance_to_go(current_x, current_y + 1, star_x, star_y)
@@ -332,7 +328,7 @@ def greedy_best_first(maze):
         current_y = current_node[1][0]
         g_path_cost = current_node[2]
 
-    print('Expanded Nodes = ' + str(g_expanded))
+    write_to_file('Expanded Nodes = ' + str(g_expanded))
 
 
 # Function to use the A* Search Algorithm
@@ -365,10 +361,9 @@ def a_star(maze):
         # the path cost to the current position
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
-            print('Path Cost = ' + str(old_path_traveled + 1))
+            write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
             path_traveled = old_path_traveled + 1
@@ -382,10 +377,9 @@ def a_star(maze):
         # the path cost to the current position
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
-            print('Path Cost = ' + str(old_path_traveled + 1))
+            write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
             path_traveled = old_path_traveled + 1
@@ -399,10 +393,9 @@ def a_star(maze):
         # the path cost to the current position
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
-            print('Path Cost = ' + str(old_path_traveled + 1))
+            write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
             path_traveled = old_path_traveled + 1
@@ -416,10 +409,9 @@ def a_star(maze):
         # the path cost to the current position
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
-            print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
-            print('Path Cost = ' + str(old_path_traveled + 1))
+            write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
             path_traveled = old_path_traveled + 1
@@ -437,7 +429,7 @@ def a_star(maze):
         current_y = current_tuple[2][0]
         old_path_traveled = current_tuple[1]
 
-    print('Expanded Nodes = ' + str(a_expanded))
+    write_to_file('Expanded Nodes = ' + str(a_expanded))
 
 
 # Main function to begin the program
@@ -445,14 +437,13 @@ def main():
     # Maze array that holds the maze characters from text file
     maze = []
     init_maze(maze)
-    print_maze(maze)
 
     # Variable to hold algorithm entered by user
     alg = None
 
     # Ask the user which search algorithm they want to use
     while not alg:
-        print('Maze Search Program')
+        ('Maze Search Program')
         print('---------------------')
         print('Options:')
         print('Breadth First Search: BFS')
