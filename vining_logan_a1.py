@@ -5,7 +5,7 @@ import heapq
 def init_maze(maze):
 
     # Read in the given file line by line until the end of file
-    with open('large maze.txt', 'r') as file:
+    with open('open maze.txt', 'r') as file:
         while True:
             line = file.readline()
             if not line:
@@ -15,10 +15,12 @@ def init_maze(maze):
 
 # Helper function that prints out the given maze
 def print_maze(maze):
+
+    file = open('maze_output.txt', 'w')
     for line in maze:
         for item in line:
-            print(item, end = ' ')
-    print('\n')
+            file.write(item)
+    file.write('\n')
 
 
 # Helper function that finds the coordinates for the 'P' start spot
