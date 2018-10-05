@@ -5,7 +5,7 @@ import heapq
 def init_maze(maze):
 
     # Read in the given file line by line until the end of file
-    with open('medium maze.txt', 'r') as file:
+    with open('large maze.txt', 'r') as file:
         while True:
             line = file.readline()
             if not line:
