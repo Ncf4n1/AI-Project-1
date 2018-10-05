@@ -71,70 +71,82 @@ def breadth_first(maze):
 
     # First find the location of the 'P' starting spot in maze
     # Then add it to the queue
+    # Also create variable to hold the number of expanded nodes
     p_coords = get_p_coords(maze)
     current_y = p_coords[1]
     current_x = p_coords[0]
-    queue.append([current_y, current_x])
+    b_path_cost = 0
+    queue.append(([current_y, current_x], b_path_cost))
+    b_expanded = 1
     goal = False
 
     # Check and expand nodes (Clockwise Left to Right)
     # Continue while the goal hasn't been reached
     while (not goal):
 
-        # First goal check the space to the left
+        # First goal check the space to the left and if it matches, print path cost
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            print('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
-            queue.append([current_y, current_x - 1])
+            queue.append(([current_y, current_x - 1], b_path_cost + 1))
             maze[current_y][current_x - 1] = 'c'
 
-        # Then check the space above
+        # Then check the space above and if it matches, print path cost
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            print('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
-            queue.append([current_y - 1, current_x])
+            queue.append(([current_y - 1, current_x], b_path_cost + 1))
             maze[current_y - 1][current_x] = 'c'
 
-        # Check the space to the right
+        # Check the space to the right and if it matches, print path cost
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            print('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
-            queue.append([current_y, current_x + 1])
+            queue.append(([current_y, current_x + 1], b_path_cost + 1))
             maze[current_y][current_x + 1] = 'c'
 
-        # Finally check the space below
+        # Finally check the space below and if it matches, print path cost
         # If not a goal and is open, add it to the unexpanded queue
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            print('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
-            queue.append([current_y + 1, current_x])
+            queue.append(([current_y + 1, current_x], b_path_cost + 1))
             maze[current_y + 1][current_x] = 'c'
 
         # Update the search path with a '.' and update current position
-        current_coords = queue.popleft()
+        # Also update the number of expanded nodes after popping
+        current_node = queue.popleft()
+        b_expanded += 1
         maze[current_y][current_x] = '.'
-        current_x = current_coords[1]
-        current_y = current_coords[0]
+        current_x = current_node[0][1]
+        current_y = current_node[0][0]
+        b_path_cost = current_node[1]
 
+    # Finish by printing the number of expanded nodes
+    print('Expanded Nodes = ' + str(b_expanded))
 
 # Function to use the Depth First Search Algorithm
 def depth_first(maze):
@@ -147,79 +159,88 @@ def depth_first(maze):
     p_coords = get_p_coords(maze)
     current_y = p_coords[1]
     current_x = p_coords[0]
+    d_path_cost = 0
     stack.append([current_y, current_x])
+    d_expanded = 0
     goal = False
 
     # Check and expand nodes (Clockwise Left to Right)
     # Continue checking until the goal is reached
     while (not goal):
 
-        # First goal check the left node
-        # If not a goal, then add it to the stack and expand it
+        # First goal check the left node and if it matches, print path cost
+        # If not a goal, then add it to the stack, expand it, & update path cost
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
-            maze[current_y][current_x] = '.'
-            current_x = current_x - 1
-            maze[current_y][current_x] = '>'
-            stack.append([current_y, current_x])
+            stack.append([current_y, current_x - 1])
+            d_path_cost += 1
+            d_expanded += 1
+            maze[current_y][current_x - 1] = '.'
             continue
 
-        # Then goal check the top node
-        # If not a goal, then add it to the stack and expand it
+        # Then goal check the top node and if it matches, print path cost
+        # If not a goal, then add it to the stack, expand it, & update path cost
         elif (maze[current_y - 1][current_x] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
-            maze[current_y][current_x] = '.'
-            current_y = current_y - 1
-            maze[current_y][current_x] = 'v'
-            stack.append([current_y, current_x])
+            stack.append([current_y - 1, current_x])
+            d_path_cost += 1
+            d_expanded += 1
+            maze[current_y - 1][current_x] = '.'
             continue
 
-        # Goal check the right node
-        # If not a goal, then add it to the stack and expand it
+        # Goal check the right node and if it matches, print path cost
+        # If not a goal, then add it to the stack, expand it, & update path cost
         elif (maze[current_y][current_x + 1] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
-            maze[current_y][current_x] = '.'
-            current_x = current_x + 1
-            maze[current_y][current_x] = '<'
-            stack.append([current_y, current_x])
+            stack.append([current_y, current_x + 1])
+            d_path_cost += 1
+            d_expanded += 1
+            maze[current_y][current_x + 1] = '.'
             continue
 
-        # Finally goal check the bottom node
-        # If not a goal, then add it to the stack and expand it
+        # Finally goal check the bottom node and if it matches, print path cost
+        # If not a goal, then add it to the stack, expand it, and update path cost
         elif (maze[current_y + 1][current_x] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            print('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
-            maze[current_y][current_x] = '.'
-            current_y = current_y + 1
-            maze[current_y][current_x] = '^'
-            stack.append([current_y, current_x])
+            stack.append([current_y + 1, current_x])
+            d_path_cost += 1
+            d_expanded += 1
+            maze[current_y + 1][current_x] = '.'
             continue
 
         # If nowhere left to go, backtrack on the stack and update coordinates
         else:
             maze[current_y][current_x] = '.'
             current_coords = stack.pop()
+            d_path_cost -= 1
             current_x = current_coords[1]
             current_y = current_coords[0]
+
+    print('Expanded Nodes = ' + str(d_expanded))
 
 
 # Function to use the Greedy Best First Search Algorithm
@@ -239,69 +260,81 @@ def greedy_best_first(maze):
     star_coords = get_star_coords(maze)
     star_y = star_coords[1]
     star_x = star_coords[0]
+
+    g_expanded = 0
+    g_path_cost = 0
     goal = False
 
     # Check and expand nodes (Clockwise Left to Right)
     # Continue checking until the goal is reached
     while (not goal):
 
-        # First goal check the left node
+        # First goal check the left node and if it matches, print path cost
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y][current_x - 1] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            print('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
             path = distance_to_go(current_x - 1, current_y, star_x, star_y)
-            heapq.heappush(g_pqueu, (path, [current_y, current_x - 1]))
+            heapq.heappush(g_pqueu, (path, [current_y, current_x - 1], g_path_cost + 1))
             maze[current_y][current_x - 1] = 'c'
 
-        # Then goal check the top node
+        # Then goal check the top node and if it matches, print path cost
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y - 1][current_x] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            print('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
             path = distance_to_go(current_x, current_y - 1, star_x, star_y)
-            heapq.heappush(g_pqueu, (path, [current_y - 1, current_x]))
+            heapq.heappush(g_pqueu, (path, [current_y - 1, current_x], g_path_cost + 1))
             maze[current_y - 1][current_x] = 'c'
 
-        # Goal check the right node
+        # Goal check the right node and if it matches, print path cost
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y][current_x + 1] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            print('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
             path = distance_to_go(current_x + 1, current_y, star_x, star_y)
-            heapq.heappush(g_pqueu, (path, [current_y, current_x + 1]))
+            heapq.heappush(g_pqueu, (path, [current_y, current_x + 1], g_path_cost + 1))
             maze[current_y][current_x + 1] = 'c'
 
-        # Finally goal check the bottom node
+        # Finally goal check the bottom node and if it matches, print path cost
         # If not a goal, then calculate its distance to goal and add it to the PQ
         if (maze[current_y + 1][current_x] == '*'):
             goal = True
             print('\n')
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            print('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
             path = distance_to_go(current_x, current_y + 1, star_x, star_y)
-            heapq.heappush(g_pqueu, (path, [current_y + 1, current_x]))
+            heapq.heappush(g_pqueu, (path, [current_y + 1, current_x], g_path_cost + 1))
             maze[current_y + 1][current_x] = 'c'
 
         # Update the old position with a '.' and update the current position
-        current_coords = heapq.heappop(g_pqueu)
+        # Also update the expanded node count and the node path cost
+        current_node = heapq.heappop(g_pqueu)
+        g_expanded += 1
         maze[current_y][current_x] = '.'
-        current_x = current_coords[1][1]
-        current_y = current_coords[1][0]
+        current_x = current_node[1][1]
+        current_y = current_node[1][0]
+        g_path_cost = current_node[2]
+
+    print('Expanded Nodes = ' + str(g_expanded))
 
 
 # Function to use the A* Search Algorithm
