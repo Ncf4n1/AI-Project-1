@@ -188,9 +188,11 @@ def depth_first(maze):
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
-            stack.append(([current_y, current_x - 1], d_path_cost + 1))
+            d_path_cost += 1
+            stack.append(([current_y, current_x - 1], d_path_cost))
             d_expanded += 1
-            maze[current_y][current_x - 1] = '.'
+            maze[current_y][current_x] = '.'
+            current_x = current_x - 1
             continue
 
         # Then goal check the top node and if it matches, print path cost
@@ -203,9 +205,11 @@ def depth_first(maze):
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
-            stack.append(([current_y - 1, current_x], d_path_cost + 1))
+            d_path_cost += 1
+            stack.append(([current_y - 1, current_x], d_path_cost))
             d_expanded += 1
-            maze[current_y - 1][current_x] = '.'
+            maze[current_y][current_x] = '.'
+            current_y = current_y - 1
             continue
 
         # Goal check the right node and if it matches, print path cost
@@ -218,9 +222,11 @@ def depth_first(maze):
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
-            stack.append(([current_y, current_x + 1], d_path_cost + 1))
+            d_path_cost += 1
+            stack.append(([current_y, current_x + 1], d_path_cost))
             d_expanded += 1
-            maze[current_y][current_x + 1] = '.'
+            maze[current_y][current_x] = '.'
+            current_x = current_x + 1
             continue
 
         # Finally goal check the bottom node and if it matches, print path cost
@@ -233,9 +239,11 @@ def depth_first(maze):
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
-            stack.append(([current_y + 1, current_x], d_path_cost + 1))
+            d_path_cost += 1
+            stack.append(([current_y + 1, current_x], d_path_cost))
             d_expanded += 1
-            maze[current_y + 1][current_x] = '.'
+            maze[current_y][current_x] = '.'
+            current_y = current_y + 1
             continue
 
         # If nowhere left to go, backtrack on the stack and update coordinates
