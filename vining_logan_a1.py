@@ -19,7 +19,7 @@ def print_maze(maze):
     file = open('maze_output.txt', 'a')
     for line in maze:
         for item in line:
-            file.write(item)
+            file.write(item + ' ')
     file.write('\n')
 
 
@@ -100,6 +100,7 @@ def breadth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            write_to_file('Breadth-First Search:')
             write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
@@ -112,6 +113,7 @@ def breadth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            write_to_file('Breadth-First Search:')
             write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
@@ -124,6 +126,7 @@ def breadth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            write_to_file('Breadth-First Search:')
             write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
@@ -136,6 +139,7 @@ def breadth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            write_to_file('Breadth-First Search:')
             write_to_file('Path Cost = ' + str(b_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
@@ -180,6 +184,7 @@ def depth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            write_to_file('Depth-First Search:')
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
@@ -194,6 +199,7 @@ def depth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            write_to_file('Depth-First Search:')
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
@@ -208,6 +214,7 @@ def depth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            write_to_file('Depth-First Search:')
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
@@ -222,6 +229,7 @@ def depth_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            write_to_file('Depth-First Search:')
             write_to_file('Path Cost = ' + str(d_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
@@ -273,6 +281,7 @@ def greedy_best_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            write_to_file('Greedy Best First Search:')
             write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
@@ -286,6 +295,7 @@ def greedy_best_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            write_to_file('Greedy Best First Search:')
             write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
@@ -299,6 +309,7 @@ def greedy_best_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            write_to_file('Greedy Best First Search:')
             write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
@@ -312,6 +323,7 @@ def greedy_best_first(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            write_to_file('Greedy Best First Search:')
             write_to_file('Path Cost = ' + str(g_path_cost + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
@@ -363,6 +375,7 @@ def a_star(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x - 1] = 'O'
+            write_to_file('A* Search:')
             write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y][current_x - 1] == ' '):
@@ -379,6 +392,7 @@ def a_star(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y - 1][current_x] = 'O'
+            write_to_file('A* Search:')
             write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y - 1][current_x] == ' '):
@@ -395,6 +409,7 @@ def a_star(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y][current_x + 1] = 'O'
+            write_to_file('A* Search:')
             write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y][current_x + 1] == ' '):
@@ -411,6 +426,7 @@ def a_star(maze):
             goal = True
             maze[current_y][current_x] = '.'
             maze[current_y + 1][current_x] = 'O'
+            write_to_file('A* Search:')
             write_to_file('Path Cost = ' + str(old_path_traveled + 1))
             break
         elif (maze[current_y + 1][current_x] == ' '):
@@ -443,7 +459,7 @@ def main():
 
     # Ask the user which search algorithm they want to use
     while not alg:
-        ('Maze Search Program')
+        print('Maze Search Program')
         print('---------------------')
         print('Options:')
         print('Breadth First Search: BFS')
